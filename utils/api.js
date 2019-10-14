@@ -54,3 +54,28 @@ export async function removeDeck(key) {
     console.log(err);
   }
 }
+
+export async function addCardToDeck(title, card) {
+  try {
+    const deck = await getDeck(title);
+
+    await AsyncStorage.mergeItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify({
+        [title]: {
+          questions: [...deck.questions].concat(card)
+        }
+      })
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function resetDecks() {
+  try {
+    await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+  } catch (err) {
+    console.log(err);
+  }
+}
