@@ -42,3 +42,15 @@ export async function saveDeckTitle(title) {
     console.log(err);
   }
 }
+
+export async function removeDeck(key) {
+  try {
+    const results = AsyncStorage.getItem(DECKS_STORAGE_KEY);
+    const data = JSON.parse(results);
+    data[key] = undefined;
+    delete data[key];
+    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
