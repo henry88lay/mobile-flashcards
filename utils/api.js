@@ -26,3 +26,19 @@ export async function getDecks(id) {
     console.log(err);
   }
 }
+
+export async function saveDeckTitle(title) {
+  try {
+    await AsyncStorage.mergeItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify({
+        [title]: {
+          title,
+          questions: []
+        }
+      })
+    );
+  } catch (err){
+    console.log(err);
+  }
+}
