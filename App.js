@@ -1,19 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
+import {StyleSheet, View, StatusBar} from 'react-native';
+import Constants from 'expo-constants';
+import AppNavigator from './navigation/AppNavigator';
 
-export default function App() {
+function FlashcardStatusBar({backgroundColor, ...props}) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   );
+}
+FlashcardStatusBar.propTypes = {
+  backgroundColor: PropTypes.string.isRequired
+};
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlashcardStatusBar backgroundColor='green' barStyle='light-content' />
+        <AppNavigator />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: '#dde'
+  }
 });
